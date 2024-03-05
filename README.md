@@ -1,4 +1,4 @@
-# PRÁCTICA 6 : Clases e interfaces genéricas. Principios SOLID
+# PRÁCTICA 7 : Conceptos avanzados sobre tipos genéricos
 
 *Nombre y apellidos: [Daniel Bensa Expósito Paz](https://github.com/Danixps?tab=repositories, "Enlace Github")*
 
