@@ -1,0 +1,12 @@
+dist
+docs
+node_modules
+.eslintignore
+.eslintrc.json
+.gitignore
+.mocharc.json
+.prettierrc.json
+package-lock.json
+package.json
+tsconfig.json
+typedoc.json

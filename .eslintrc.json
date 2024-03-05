@@ -1,0 +1,28 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "quotes": "off",
+        "valid-jsdoc": "off",
+        "require-jsdoc": "off",
+        "@typescript-eslint/quotes": [
+            "warn",
+            "single"
+        ]
+    }
+}
