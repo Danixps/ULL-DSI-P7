@@ -19,16 +19,37 @@ type Interface_complex = {
  * @param complex_number definde un atriburto de una interfaz formada por imaginario y real
  */
 export class Complex {
-  constructor(private num: number = 0, private deno :number = 0) {
+  constructor(private complejo: Interface_complex = {
+        re: 0, im: 0}) {
   }
-  getDataComplex(): Complex{
-    return new Complex(this.num, this.deno);
+   getDataComplex(): Interface_complex {
+     return { re: this.complejo.im, im: this.complejo.re};
+   }
+   getDataComplex_im(): number {
+    return this.complejo.im;
   }
-  getDataim(): number{
-    return this.num;
+  getDataComplex_real(): number {
+    return this.complejo.re;
   }
-  getDatare(): number{
-    return this.deno;
+   
+   add(c1: Complex) : Complex {
+
+    return new Complex({im: c1.getDataComplex_im() + this.getDataComplex_im(), re: c1.getDataComplex_real() +  this.getDataComplex_real()});
+  }
+  sub(c1: Complex) : Complex {
+    return new Complex({im: c1.getDataComplex_im() - this.getDataComplex_im(), re: c1.getDataComplex_real() -  this.getDataComplex_real()});
+  }
+  mult(c1: Complex) : Complex {
+    const real = this.getDataComplex_real() * c1.getDataComplex_real() - this.getDataComplex_im() * c1.getDataComplex_im();
+    const imagi = this.getDataComplex_real() * c1.getDataComplex_im() + this.getDataComplex_im() * c1.getDataComplex_real();
+    return new Complex({im:real, re: imagi});
+  }
+
+  div(c1: Complex) : Complex {
+    const denominator = c1.getDataComplex_real() * c1.getDataComplex_real() + c1.getDataComplex_im() * c1.getDataComplex_im();
+    const real = (this.getDataComplex_real() * c1.getDataComplex_real() + this.getDataComplex_im() * c1.getDataComplex_im() )/ denominator;
+    const imagi = (this.getDataComplex_im()* c1.getDataComplex_real()- this.getDataComplex_real() * c1.getDataComplex_im()) / denominator;
+    return new Complex({im: real, re: imagi});
   }
 }
 
@@ -45,11 +66,11 @@ export class Rational {
   getSpecificComplex(): Rational {
     return new Rational(this.num/this.deno, 0);
   }
-  getSpecificComplexreal(): number {
-    return (this.num/this.deno);
+  getSpecificComplexi(): number {
+    return 0;
   }
-  getSpecificComplexima(): number {
-    return (0);
+  getSpecificComplexr(): number {
+    return this.num/this.deno;
   }
   
 }
@@ -60,53 +81,54 @@ export class Rational {
  */
 export class Adapter extends Complex {
   constructor(private service: Rational) {
-    super();
+    super({im: service.getSpecificComplexi(), re: service.getSpecificComplexr()});
   }
    /**
   * Descripción: La funcion getData devuelve la forma de un complejo
   * @returns devolvemos la forma de un complejo
   */
-  getData(): Complex {
-    return this.getData().getDataComplex();
+
+  getData(): Interface_complex {
+    return {im: this.getDataComplex_im(), re: this.getDataComplex_real()}
   }
-  add(c1: Complex) : Complex {
-    return new Complex(c1.getDatare() + this.service.getSpecificComplexreal(), c1.getDataim());
-  }
-  sub(c1: Complex) : Complex {
-    return new Complex(c1.getDatare() - this.service.getSpecificComplexreal(), c1.getDataim());
-  }
-  mult(c1: Complex) : Complex {
-    return new Complex(c1.getDatare() * this.service.getSpecificComplexreal(), c1.getDataim());
-  }
-  div(c1: Complex) : Complex {
-    return new Complex(c1.getDatare() / this.service.getSpecificComplexreal(), c1.getDataim());
-  }
+  
+ 
 }
 
 
-const systemA_Rational = new Rational(3, 2);
+const systemA_Rational = new Rational(1, 2);
 
-const systemB_Complex = new Complex(1,2);
+const systemB_Complex = new Complex({im: 1, re: 2});
+
+
+
 
 /**
  * Descripción: La funcion clientcode, adapta un rational a un complejo
  * @param data es un array de dos numeros donde recibe un complejo o lo que tenga forma de complejo
  */
-function clientCode(data: Complex) {
+export function clientCode(data: Complex) {
   console.log(data);
 }
 
-//clientCode(systemA_Rational.getSpecificComplex());
-console.log(systemB_Complex.getDataComplex());
-
-// console.log(systemA_Rational.add(systemB_Complex));
-// console.log(systemA_Rational.sub(systemB_Complex));
-// console.log(systemA_Rational.mult(systemB_Complex));
-// console.log(systemA_Rational.div(systemB_Complex));
 
 
+ const adapter = new Adapter(systemA_Rational);
 
-const adapter = new Adapter(systemA_Rational);
-clientCode(adapter.add(systemB_Complex));
-clientCode(adapter.sub(systemB_Complex));
-clientCode(adapter.mult(systemB_Complex));
+ //racional adaptado
+ console.log('Racional adaptado');
+ console.log(adapter.getData())
+ console.log('Complejo');
+ console.log(systemB_Complex);
+
+ console.log('Suma');
+ clientCode(adapter.add(systemB_Complex));
+
+ console.log('Resta');
+ clientCode(adapter.sub(systemB_Complex));
+
+ console.log('Multiplicacion');
+ clientCode(adapter.mult(systemB_Complex));
+
+ console.log('División');
+ clientCode(adapter.div(systemB_Complex));
