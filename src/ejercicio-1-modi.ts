@@ -5,52 +5,11 @@
 // //Correo Institucional: alu0101481876@ull.edu.es
 // //Fecha: 21/02/2024
 
-// Client code is able to work properly with the interface of SystemA
-
-
-// interface Arithmeticable<T> {
-//   add(secondOp: T): T
-//   sub(secondOp: T): T
-//   mult(secondOp: T): T
-//   div(secondOp: T): T
-// }
-
-// class ArithmeticableCollection<T extends Arithmeticable<T>> {
-//   constructor(private myCollection: T[]) {
-//     this.myCollection = myCollection;
-//   }
-
-//   addArithmeticable(item: T) {
-//     this.myCollection.push(item);
-//   }
-
-//   getArithmeticable(index: number): T | undefined {
-//     if (index < 0 || index > this.myCollection.length) {
-//       return undefined
-//     }
-//     return this.myCollection[index];
-//   }
-
-//   getNumberOfArithmeticables(): number {
-//     return this.myCollection.length;
-//   }
-// }
-
-// class Complex implements Arithmeticable<Complex> {
-//   constructor(private re: number, private im: number) {
-//   }
-
-//   add(secondOp: Complex): Complex {
-//     return new Complex(this.re + secondOp.re, this.im + secondOp.im);
-//   }
-
-//   // sub, mult y div se implementan similar
-// }
-
-// const myComplexCollection = new ArithmeticableCollection<Complex>([new Complex(5, 3), new Complex(7, -8)]);
-
-
-
+/**
+ * Descripción: El typo interface complex define un compplejo
+ * @param re definde la part real
+ * @param im definde la part imaginaria
+ */
 type Interface_complex = {
   re:number;
   im:number;
