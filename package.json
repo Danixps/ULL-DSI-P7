@@ -7,6 +7,7 @@
     "dev": "tsc-watch --onSuccess \"node dist/basicFunctions.js\"",
     "doc": "typedoc",
     "test": "mocha",
+    "e1": "tsc-watch --onSuccess \"node dist/ejercicio-1-modi.js\"",
     "coverage": "nyc npm test && nyc report --reporter=lcov"
   },
   "keywords": [],

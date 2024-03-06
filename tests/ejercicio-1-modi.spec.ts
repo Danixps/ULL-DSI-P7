@@ -1,45 +1,103 @@
 import 'mocha';
 import {expect} from 'chai';
-import {Rational, Complex, ArithmeticableCollection}  from '../src/ejercicio-1-modi';
+import {Rational, Complex, Adapter}  from '../src/ejercicio-1-modi';
 
-describe('Ejercicio-1-modi. Racionales', () => {
-    it('operaciones con ellos', () => {
-      const racional = new Rational('1/2', '2/1');
+describe('Ejercicio-1-modi. Adaptar racional a complejo', () => {
+    it('Suma de racional adaptado a complejo y otro complejo ', () => {
+    const systemA_Rational = new Rational(1, 2);
+    const systemB_Complex = new Complex({
+    re: 2,
+    im: 1,
 
+    });
+    function clientCode(data: number[]) {
+      console.log(data);
+    }
+
+    clientCode(systemA_Rational.getSpecificComplex());
+
+
+    const adapter = new Adapter(systemB_Complex);
+    clientCode(adapter.getData());
 
        
-      expect(racional.add()).to.be.equal('5/2');
-      expect(racional.substract()).to.be.equal('-3/2');
-      expect(racional.multiply()).to.be.equal('1/1');
-      expect(racional.divide()).to.be.equal('1/4');
+    expect(systemA_Rational.add(systemB_Complex)).to.be.eql([2.5, 1]);
+
+
+      });
+});
+
+describe('Ejercicio-1-modi. Adaptar racional a complejo', () => {
+  it('Resta de racional adaptado a complejo y otro complejo ', () => {
+  const systemA_Rational = new Rational(1, 2);
+  const systemB_Complex = new Complex({
+  re: 2,
+  im: 1,
+
+  });
+  function clientCode(data: number[]) {
+    console.log(data);
+  }
+
+  clientCode(systemA_Rational.getSpecificComplex());
+
+
+  const adapter = new Adapter(systemB_Complex);
+  clientCode(adapter.getData());
+
+     
+  expect(systemA_Rational.sub(systemB_Complex)).to.be.eql([1.5, 1]);
+
 
     });
 });
 
-
-
-describe('Ejercicio-1-modi. Complejo', () => {
-  it('Operaciones con ellos', () => {
-    const complejo = new Complex('1 2', '2 1');
-    
-     
-    expect(complejo.add()).to.be.equal('5 2i');
-    expect(complejo.substract()).to.be.equal('-3 2i');
-    expect(complejo.multiply()).to.be.equal('0 3i');
-    expect(complejo.divide()).to.be.equal('0 3i');
+describe('Ejercicio-1-modi. Adaptar racional a complejo', () => {
+  it('Suma de racional adaptado a complejo y otro complejo ', () => {
+  const systemA_Rational = new Rational(1, 2);
+  const systemB_Complex = new Complex({
+  re: 2,
+  im: 1,
 
   });
+  function clientCode(data: number[]) {
+    console.log(data);
+  }
+
+  clientCode(systemA_Rational.getSpecificComplex());
+
+
+  const adapter = new Adapter(systemB_Complex);
+  clientCode(adapter.getData());
+
+     
+  expect(systemA_Rational.mult(systemB_Complex)).to.be.eql([1, 0.5]);
+
+
+    });
 });
 
-describe('Ejercicio-1-modi. Aritmethic Collection', () => {
-  it('Operaciones con ellos', () => {
-    const coleccion = new ArithmeticableCollection(['1', '1', '3']);
-   // const racional = new Rational('1/2', '2/1');
-   // coleccion.addArithmeticable(complejo1);
-    
-    
-    expect(coleccion.getNumberOfArithmeticables()).to.be.equal(3);
-    expect(coleccion.getItem(1)).to.be.equal('1');
-    coleccion.addArithmeticable('1');
+describe('Ejercicio-1-modi. Adaptar racional a complejo', () => {
+  it('Suma de racional adaptado a complejo y otro complejo ', () => {
+  const systemA_Rational = new Rational(1, 2);
+  const systemB_Complex = new Complex({
+  re: 2,
+  im: 1,
+
   });
+  function clientCode(data: number[]) {
+    console.log(data);
+  }
+
+  clientCode(systemA_Rational.getSpecificComplex());
+
+
+  const adapter = new Adapter(systemB_Complex);
+  clientCode(adapter.getData());
+
+     
+  expect(systemA_Rational.div(systemB_Complex)).to.be.eql([4, 0.5]);
+
+
+    });
 });

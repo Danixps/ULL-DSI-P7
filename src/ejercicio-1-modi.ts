@@ -5,228 +5,164 @@
 // //Correo Institucional: alu0101481876@ull.edu.es
 // //Fecha: 21/02/2024
 
-type numeros = string;
+// Client code is able to work properly with the interface of SystemA
 
+
+// interface Arithmeticable<T> {
+//   add(secondOp: T): T
+//   sub(secondOp: T): T
+//   mult(secondOp: T): T
+//   div(secondOp: T): T
+// }
+
+// class ArithmeticableCollection<T extends Arithmeticable<T>> {
+//   constructor(private myCollection: T[]) {
+//     this.myCollection = myCollection;
+//   }
+
+//   addArithmeticable(item: T) {
+//     this.myCollection.push(item);
+//   }
+
+//   getArithmeticable(index: number): T | undefined {
+//     if (index < 0 || index > this.myCollection.length) {
+//       return undefined
+//     }
+//     return this.myCollection[index];
+//   }
+
+//   getNumberOfArithmeticables(): number {
+//     return this.myCollection.length;
+//   }
+// }
+
+// class Complex implements Arithmeticable<Complex> {
+//   constructor(private re: number, private im: number) {
+//   }
+
+//   add(secondOp: Complex): Complex {
+//     return new Complex(this.re + secondOp.re, this.im + secondOp.im);
+//   }
+
+//   // sub, mult y div se implementan similar
+// }
+
+// const myComplexCollection = new ArithmeticableCollection<Complex>([new Complex(5, 3), new Complex(7, -8)]);
+
+
+
+type Interface_complex = {
+  re:number;
+  im:number;
+}
 /**
- * Arithmeticable es una interfaz recibe un número entero y un array de números y devuelve la suma de los múltiplos de los números del array hasta el número entero
- * @param T[]
- * * ```typescript
- * ```
+ * Descripción: La clase Complex define un imaginario y real
+ * @param complex_number definde un atriburto de una interfaz formada por imaginario y real
  */
-interface Arithmeticable<T> {
-  add(valor1: T, valor2: T): string;
-  substract(valor1: T, valor2: T): string;
-  multiply(valor1: T, valor2: T): string;
-  divide(valor1: T, valor2: T): string;
-
+export class Complex {
+  constructor(private complex_number: Interface_complex) {
+  }
+  getDataComplex(): Interface_complex{
+    return this.complex_number;
+  }
 }
 
 
 /**
- * ArithmeticableCollection recibe un número entero y un array de números y devuelve la suma de los múltiplos de los números del array hasta el número entero
- * @param T[]
- * * ```typescript
- * ```
+ * Descripción: La clase Rational define un array de items de tipo T y métodos para añadir, eliminar, listar, buscar y ordenar los items.
+ * @param num define el numerador
+ * @param dem define el denomindador
  */
-export class ArithmeticableCollection<T extends string> implements Arithmeticable<T> {
-  constructor(private arithmetica: T[]) {
+export class Rational {
+  constructor(private num: number = 0, private deno :number = 0) {
   }
 
-  add(valor2: T, valor3: T) {
-    return valor2 + valor3;
+  getSpecificComplex(): number[] {
+    return [this.num/this.deno, 0];
   }
 
-  multiply(valor2: T, valor3: T) {
-    return valor2 + valor3;
+  /**
+  * Descripción: La funcion add suma dos objertos con formas de complejo
+  * @param c1 que va a ser el complejo que pasemos por parametro
+  * @returns devolvemos la forma de un complejo
+  */
+  add(c1: Complex) : number[] {
+
+    return [c1.getDataComplex().re + this.num/this.deno, c1.getDataComplex().im]
+  }
+  /**
+  * Descripción: La funcion add suma dos objertos con formas de complejo
+  * @param c1 que va a ser el complejo que pasemos por parametro
+  * @returns devolvemos la forma de un complejo
+  */
+  sub(c1: Complex) : number[] {
+
+    return [c1.getDataComplex().re - this.num/this.deno, c1.getDataComplex().im]
+  }
+  /**
+  * Descripción: La funcion add suma dos objertos con formas de complejo
+  * @param c1 que va a ser el complejo que pasemos por parametro
+  * @returns devolvemos la forma de un complejo
+  */
+  mult(c1: Complex) : number[] {
+
+    return [c1.getDataComplex().re * this.num/this.deno, c1.getDataComplex().im * this.num/this.deno]
+  }
+  /**
+  * Descripción: La funcion add suma dos objertos con formas de complejo
+  * @param c1 que va a ser el complejo que pasemos por parametro
+  * @returns devolvemos la forma de un complejo
+  */
+  div(c1: Complex) : number[] {
+
+    return [c1.getDataComplex().re / (this.num/this.deno), c1.getDataComplex().im / this.num/this.deno]
   }
   
-  substract(valor2: T, valor3: T) {
-    return valor2 + valor3;
-  }
-
-  divide(valor2: T, valor3: T) {
-    return valor2 + valor3;
-  }
-
-  addArithmeticable(newAritmetic: T){
-    this.arithmetica.push(newAritmetic);
-    
-  }
-  getItem(index: number) {
-    return this.arithmetica[index];
-  }
-
-  getNumberOfArithmeticables(){
-    return this.arithmetica.length
-  }
-}
-
-
-
-/**
- * Rational recibe un número entero y un array de números y devuelve la suma de los múltiplos de los números del array hasta el número entero
- * @param racional1
- * @param racional2
- * 
- * * ```typescript
- * ```
- */
-export class Rational<T extends numeros> implements Arithmeticable<T> {
-  constructor(protected racional1: T , protected racional2: T) {
-  }
-
-  mcd(numerador: number, denominador: number): number {
-    let a = Math.abs(numerador);
-    let b = Math.abs(denominador);
-    while (b) {
-      const t = b;
-      b = a % b;
-      a = t;
-    }
-    return a;
-  }
-
-  getNumerador_Denominador(racional: T): number[] {
-    const numerador = parseInt(racional.split('/')[0]);
-    const denominador = parseInt(racional.split('/')[1]);
-    return [numerador, denominador];
- }
-
-  add(){
-
-    let [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-    let [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-    const denominador_comun = denominador1 * denominador2;
-     numerador1 = numerador1 * denominador2;
-     numerador2 = numerador2 * denominador1;
-     const numerador = numerador1 + numerador2;
-     const minimo_comun_divisor = this.mcd(numerador, denominador_comun);
-    return numerador / minimo_comun_divisor + '/' + denominador_comun / minimo_comun_divisor;
-
-  }
-
-  substract() {
-       let [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-       let [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-       const denominador_comun = denominador1 * denominador2;
-       numerador1 = numerador1 * denominador2;
-       numerador2 = numerador2 * denominador1;
-       const numerador = numerador1 - numerador2;
-       const minimo_comun_divisor = this.mcd(numerador, denominador_comun);
-       return numerador / minimo_comun_divisor + '/' + denominador_comun / minimo_comun_divisor;
-  }
-
-  multiply() {
-      const [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-      const [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-      const numerador = numerador1 * numerador2;
-      const denominador = denominador1 * denominador2;
-      const minimo_comun_divisor = this.mcd(numerador, denominador);
-      return numerador / minimo_comun_divisor + '/' + denominador / minimo_comun_divisor;
-    }
-
-  divide() {
-        const [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-        const [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-        const numerador = numerador1 * denominador2;
-        const denominador = denominador1 * numerador2;
-        const minimo_comun_divisor = this.mcd(numerador, denominador);
-        return numerador / minimo_comun_divisor + '/' + denominador / minimo_comun_divisor;
-      }
-
 }
 
 /**
- * Complex recibe un número entero y un array de números y devuelve la suma de los múltiplos de los números del array hasta el número entero
- * @param complejo1
- * @param complejo2
- * 
- * * ```typescript
- * ```
+ * Descripción: La clase Adapter, adapta un rational a un complejo
+ * @param services es un atributo de tipo complejo
  */
-export class Complex<T extends numeros> implements Arithmeticable<T> {
-  constructor(protected racional1: T , protected racional2: T) {
+export class Adapter extends Rational {
+  constructor(private service: Complex) {
+    super();
   }
-
-  mcd(numerador: number, denominador: number): number {
-    let a = Math.abs(numerador);
-    let b = Math.abs(denominador);
-    while (b) {
-      const t = b;
-      b = a % b;
-      a = t;
-    }
-    return a;
+   /**
+  * Descripción: La funcion getData devuelve la forma de un complejo
+  * @returns devolvemos la forma de un complejo
+  */
+  getData(): number[]{
+    return [this.service.getDataComplex().re, this.service.getDataComplex().im];
   }
-
-  getNumerador_Denominador(racional: T): number[] {
-    const numerador = parseInt(racional.split(' ')[0]);
-    const denominador = parseInt(racional.split(' ')[1]);
-    return [numerador, denominador];
- }
-
-  add(){
-
-    let [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-    let [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-    const denominador_comun = denominador1 * denominador2;
-     numerador1 = numerador1 * denominador2;
-     numerador2 = numerador2 * denominador1;
-     const numerador = numerador1 + numerador2;
-     const minimo_comun_divisor = this.mcd(numerador, denominador_comun);
-    return numerador / minimo_comun_divisor + ' ' + denominador_comun / minimo_comun_divisor + 'i' ;
-
-  }
-
-  substract() {
-       let [numerador1, denominador1] = this.getNumerador_Denominador(this.racional1);
-       let [numerador2, denominador2] = this.getNumerador_Denominador(this.racional2);
-       const denominador_comun = denominador1 * denominador2;
-       numerador1 = numerador1 * denominador2;
-       numerador2 = numerador2 * denominador1;
-       const numerador = numerador1 - numerador2;
-       const minimo_comun_divisor = this.mcd(numerador, denominador_comun);
-       return numerador / minimo_comun_divisor + ' ' + denominador_comun / minimo_comun_divisor + 'i' ;
-  }
-
-  multiply() {
-      const [r1, im1] = this.getNumerador_Denominador(this.racional1);
-      const [r2, im2] = this.getNumerador_Denominador(this.racional2);
-      const real = r1 * r2
-      const imaginaria = im1 * im2;
-      const parte_real = real - imaginaria;
-      const real2 = r1 * im2;
-      const imaginaria2 = im1 * im2;
-      const parte_imaginaria = real2 + imaginaria2;
-
-      return parte_real + ' ' +  parte_imaginaria + 'i';
-    }
-
-  divide() {
-    const [r1, im1] = this.getNumerador_Denominador(this.racional1);
-    const [r2, im2] = this.getNumerador_Denominador(this.racional2);
-    const real = r1 * r2
-    const imaginaria = im1 * im2;
-    const parte_real = real - imaginaria;
-    const real2 = r1 * im2;
-    const imaginaria2 = im1 * im2;
-    const parte_imaginaria = real2 + imaginaria2;
-
-    return parte_real + ' ' +  parte_imaginaria + 'i';
-    }
-
 }
-const racional = new Rational('1/2', '2/1');
-const complejo = new Complex('1 2', '2 1');
 
-console.log(racional.add());
-console.log(racional.multiply());
-console.log(racional.divide());
-console.log(racional.substract());
-console.log(complejo.add());
- 
-const coleccion = new ArithmeticableCollection(['1', '1', '3']);
-// const dato: T = '2';
-console.log(coleccion.getNumberOfArithmeticables());
-console.log(coleccion.getItem(1));
 
+const systemA_Rational = new Rational(1, 2);
+const systemB_Complex = new Complex({
+  re: 2,
+  im: 1,
+
+});
+
+
+/**
+ * Descripción: La funcion clientcode, adapta un rational a un complejo
+ * @param data es un array de dos numeros donde recibe un complejo o lo que tenga forma de complejo
+ */
+function clientCode(data: number[]) {
+  console.log(data);
+}
+
+clientCode(systemA_Rational.getSpecificComplex());
+console.log(systemB_Complex.getDataComplex());
+
+console.log(systemA_Rational.add(systemB_Complex));
+console.log(systemA_Rational.sub(systemB_Complex));
+console.log(systemA_Rational.mult(systemB_Complex));
+console.log(systemA_Rational.div(systemB_Complex));
+
+
+
+const adapter = new Adapter(systemB_Complex);
+clientCode(adapter.getData());
